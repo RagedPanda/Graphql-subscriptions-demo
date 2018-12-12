@@ -13,6 +13,7 @@ module.exports = {
   },
   resolve: (root, { data }, { db: { Event } }) => {
     return new Promise((resolve, reject) => {
+      data.date = new Date();
       const newEvent = new Event(data)
 
       newEvent
