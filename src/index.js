@@ -33,7 +33,7 @@ app.use(
   '/graphiql',
   graphiqlExpress({
     endpointURL: '/graphql',
-    subscriptionsEndpoint: `ws://54.145.238.129:5000/subscriptions`
+    subscriptionsEndpoint: `ws://54.145.238.129:${PORT}/subscriptions`
   })
 );
 
