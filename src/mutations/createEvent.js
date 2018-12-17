@@ -2,7 +2,7 @@ const { GraphQLNonNull } = require('graphql')
 const EventType = require('../types/event')
 const EventInputType = require('../types/input/event')
 const request = require("request")
-const PORT = process.env.PORT || 5000
+//const PORT = process.env.PORT || 5000
 
 module.exports = {
   type: EventType,
@@ -28,7 +28,7 @@ module.exports = {
           };
           
           request.post(
-            `http://localhost:${PORT}/publish`,
+            `http://52.70.213.204:5000/publish`,
             { json: { channel_name: channelName, data : payload },
               headers: {
               'Content-Type' : 'application/json'
