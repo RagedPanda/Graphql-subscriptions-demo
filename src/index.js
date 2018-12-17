@@ -6,6 +6,7 @@ const { SubscriptionServer } = require('subscriptions-transport-ws')
 const { subscribe, execute } = require('graphql')
 const schema = require('./schema')
 const db = require('./db')
+const socket = require("./socket");
 
 const app = express()
 
