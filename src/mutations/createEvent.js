@@ -1,7 +1,8 @@
 const { GraphQLNonNull } = require('graphql')
 const EventType = require('../types/event')
 const EventInputType = require('../types/input/event')
-const socket = require('../socket')
+const request = require("request")
+const PORT = process.env.PORT || 5000
 
 module.exports = {
   type: EventType,
@@ -19,9 +20,25 @@ module.exports = {
       newEvent
         .save()
         .then(data => {
-          socket.publish('EVENT_CREATED', {
-            eventCreated: data
-          })
+          let channelName = "EVENT_CREATED";
+          let payload = {
+            id: data._id,
+            name: data.name,
+            date: data.date
+          };
+          
+          request.post(
+            `http://localhost:${PORT}/publish`,
+            { json: { channel_name: channelName, data : payload },
+              headers: {
+              'Content-Type' : 'application/json'
+            }},
+            function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    //console.log(body)
+                }
+            }
+          );
 
           resolve(data)
         })

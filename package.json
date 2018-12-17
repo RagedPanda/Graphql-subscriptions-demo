@@ -13,6 +13,7 @@
     "graphql-server-express": "^1.0.0",
     "graphql-subscriptions": "^0.4.4",
     "mongoose": "^4.11.0",
+    "request": "^2.88.0",
     "subscriptions-transport-ws": "^0.8.0"
   },
   "devDependencies": {
