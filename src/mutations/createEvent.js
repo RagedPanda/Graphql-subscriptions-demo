@@ -27,18 +27,21 @@ module.exports = {
             date: data.date
           };
           
+          console.log("\n\n\n\n calling api");
           request.post(
-            `http://52.70.213.204:5000/publish`,
+            `http://localhost:5000/publish`,
             { json: { channel_name: channelName, data : payload },
               headers: {
               'Content-Type' : 'application/json'
             }},
             function (error, response, body) {
                 if (!error && response.statusCode == 200) {
-                    //console.log(body)
+                    console.log("success")
                 }
             }
           );
+
+          //console.log(request);
 
           resolve(data)
         })

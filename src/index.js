@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 5000
 app.use(bodyParser.json())
 
 // app.all('*', function (req, res, next) {
-//   console.log(`\n\n\n Query : \n\n ${req.body.query} \n\n\n Variable : \n\n ${JSON.stringify(req.body.variables)}\n\n\n Response : \n\n ${res.body}`);
+//   console.log(`\n\n\n Query : \n\n ${req.body.query} \n\n\n Variable : \n\n ${JSON.stringify(req.body.variables)}`);
 //   next() // pass control to the next handler
 // });
 
@@ -34,7 +34,7 @@ app.use(
   '/graphiql',
   graphiqlExpress({
     endpointURL: '/graphql',
-    subscriptionsEndpoint: `ws://54.145.238.129:${PORT}/subscriptions`
+    subscriptionsEndpoint: `ws://localhost:${PORT}/subscriptions`
   })
 );
 
@@ -62,6 +62,6 @@ server.listen(PORT, err => {
 app.post('/publish', (req, res) => {
   //console.log(JSON.stringify(req.body));
   socket.publish(req.body.channel_name, {
-    jobReceived : req.body.data
+    eventCreated : req.body.data
   });
 });
