@@ -8,7 +8,7 @@ AWS.config.update({ region: "us-east-1"});
 
 // Create an SQS service object
 var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
-const QueueUrl = "https://sqs.us-east-1.amazonaws.com/401763998567/job-events";
+const QueueUrl = process.env.SQS_LINK;
 
 const response = new GraphQLObjectType({
   name: "response",
