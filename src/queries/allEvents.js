@@ -20,6 +20,7 @@ module.exports = {
     { db: { Event } },
     fieldASTs
   ) => {
+    console.log("db : ", Event);
     return new Promise((resolve, reject) => {
       const projection = getProjection(fieldASTs)
 
