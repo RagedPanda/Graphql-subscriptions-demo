@@ -1,5 +1,5 @@
 {
-  "name": "graphql-server",
+  "name": "pubsub",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -7,19 +7,19 @@
     "dev": "nodemon src"
   },
   "dependencies": {
-    "aws-sdk": "^2.379.0",
+    "bluebird": "^3.5.3",
     "body-parser": "^1.17.2",
     "dotenv": "^6.2.0",
     "express": "^4.15.3",
     "graphql": "^0.10.3",
     "graphql-server-express": "^1.0.0",
     "graphql-subscriptions": "^0.4.4",
-    "mongoose": "^4.11.0",
-    "request": "^2.88.0",
-    "serverless": "^1.35.0",
+    "mongoose": "^5.4.9",
     "subscriptions-transport-ws": "^0.8.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
-  }
+  },
+  "repository": "git@github.com:RagedPanda/Graphql-subscriptions-demo.git",
+  "author": "<ankur@getproperly.com>"
 }

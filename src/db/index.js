@@ -1,5 +1,5 @@
-const Event = require('./event')
+const Session = require('./model-session')
 
 module.exports = {
-  Event
+  Session
 }

@@ -1,42 +1,36 @@
-require('dotenv').config();
-const { createServer } = require('http')
-const express = require('express')
-const bodyParser = require('body-parser')
-const { graphqlExpress, graphiqlExpress } = require('graphql-server-express')
-const { SubscriptionServer } = require('subscriptions-transport-ws')
-const { subscribe, execute } = require('graphql')
-const schema = require('./schema')
-const db = require('./db')
+require("dotenv").config();
+const { createServer } = require("http")
+const bodyParser = require("body-parser")
+const express = require("express")
+const { graphqlExpress, graphiqlExpress } = require("graphql-server-express")
+const { SubscriptionServer } = require("subscriptions-transport-ws")
+const { subscribe, execute } = require("graphql")
+const schema = require("./schema")
 const socket = require("./socket");
+const { validateToken } = require("./authanticateUser");
 
-const app = express()
+const app = express();
 
-const dev = process.env.NODE_ENV !== 'production'
-const PORT = process.env.PORT || 5000
+const dev = process.env.NODE_ENV !== "production";
+const PORT = process.env.PORT || 4000;
 
 app.use(bodyParser.json())
 
-// app.all('*', function (req, res, next) {
-//   console.log(`\n\n\n Query : \n\n ${req.body.query} \n\n\n Variable : \n\n ${JSON.stringify(req.body.variables)}`);
-//   next() // pass control to the next handler
-// });
+app.post(
+  "/graphql", (req, res) => { 
+    graphqlExpress({ 
+      schema
+    })(req, res) 
+  }
+);
 
 app.use(
-  '/graphql',
-  graphqlExpress({
-    context: {
-      db
-    },
-    schema
-  })
-)
-
-app.use(
-  '/graphiql',
-  graphiqlExpress({
-    endpointURL: '/graphql',
-    subscriptionsEndpoint: `ws://localhost:${PORT}/subscriptions`
-  })
+  "/graphiql", (req, res) => {
+    graphiqlExpress({
+      endpointURL: "/graphql",
+      subscriptionsEndpoint: `ws://localhost:${PORT}/subscriptions`
+    })(req, res)
+  }
 );
 
 const server = createServer(app)
@@ -49,20 +43,21 @@ server.listen(PORT, err => {
       schema,
       execute,
       subscribe,
-      onConnect: () => console.log('Client connected')
+      onConnect: () => validateToken()
     },
     {
       server,
-      path: '/subscriptions'
+      path: "/subscriptions"
     }
   )
 
   console.log(`> Ready on PORT ${PORT}`)
 })
 
-app.post('/publish', (req, res) => {
-  //console.log(JSON.stringify(req.body));
+app.post("/publish", (req, res) => {
+  console.log("channel : ", req.body.channel_name);
+  console.log("snapshot : ", req.body.snapshot);
   socket.publish(req.body.channel_name, {
-    eventCreated : req.body.data
+    jobAggregateSnapshot : req.body.snapshot
   });
 });

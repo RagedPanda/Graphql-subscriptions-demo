@@ -1,13 +1,12 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-mongoose.Promise = global.Promise
-mongoose.connect(process.env.MONGODBURI)
+mongoose.Promise = require("bluebird");
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
 
 const connection = mongoose.connection
 
-connection.on('close', () => {
-  console.log('MongoDB connection closed')
-  process.exit(0)
-})
+connection.on("open", () => {
+  console.log("MongoDB connected");
+});
 
-module.exports = mongoose
+module.exports = mongoose;

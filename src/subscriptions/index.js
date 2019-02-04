@@ -1,5 +1,7 @@
-const eventCreated = require('./eventCreated')
+const jobAggregateSnapshot = require('./jobSnapshot');
+const jobList = require("./jobList");
 
 module.exports = {
-  eventCreated
+  jobAggregateSnapshot,
+  jobList
 }

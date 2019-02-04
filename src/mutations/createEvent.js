@@ -1,14 +1,5 @@
 const { GraphQLNonNull, GraphQLObjectType, GraphQLString } = require('graphql')
-//const EventType = require('../types/event')
 const EventInputType = require('../types/input/event')
-//const request = require("request")
-const AWS = require("aws-sdk");
-AWS.config.update({ region: "us-east-1"});
-//const PORT = process.env.PORT || 5000
-
-// Create an SQS service object
-var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
-const QueueUrl = process.env.SQS_LINK;
 
 const response = new GraphQLObjectType({
   name: "response",
